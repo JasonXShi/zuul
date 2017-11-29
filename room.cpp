@@ -1,16 +1,16 @@
-#include "digitalMedia.h"
+#include "room.h"
 #include <cstring>
 #include <iostream>
 using namespace std;
 
-room::room(char* newDescription) {
-	description = newDescription;
+room::room(const char* newDescription) {
+    description = newDescription;
+}
+/*
+void room::setExit(){
 }
 
-void setExit(){
+char* room::getDescription(){
 }
 
-char* getDescription(){
-}
-
-
+*/

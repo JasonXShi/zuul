@@ -1,20 +1,20 @@
 #ifndef ROOM_H
 #define ROOM_H
 #include <cstring>
+#include <vector>
 
-struct item{
-    char item = char[50];
-};
-class room{
-public:
-    room(char* newDescription);
-    void setExit(/*direction and neighbor*/);
-    char* getDescription();
-    //getInfo, getItem, getExit, removeItem, setItem, getRoomItems
-private:
-    //ADD MAP THING
-    char description = char[50];
-    vector<item*> items;
+using namespace std;
+
+class room {
+    private:
+        //ADD MAP THING
+        const char* description;
+        //vector<item*> items;
+    public:
+        room(const char* newDescription);
+        //void setExit(/*direction and neighbor*/);
+        //char* getDescription();
+        //getInfo, getItem, getExit, removeItem, setItem, getRoomItems
 };          
 
 #endif
