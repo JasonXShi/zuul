@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class room {
+class Room {
     private:
         //ADD MAP THING
         const char* description;
