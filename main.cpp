@@ -12,26 +12,26 @@ int main() {
 
   //create items
   Items* AK47 = new Items("AK47");
-  Items* Bomb = new Items("Bomb");
-  Items* DefuseKit = new Items("DefuseKit");
-  Items* Flashbang = new Items("Flashbang");
-  Items* Grenade = new Items("Grenade");
+  Items* BOMB = new Items("BOMB");
+  Items* DEFUSEKIT = new Items("DEFUSEKIT");
+  Items* FLASHBANG = new Items("FLASHBANG");
+  Items* GRENADE = new Items("GRENADE");
 
   //create rooms and add the items to the rooms
   Room* current;
   Room* bSite = new Room("bSite", "at B Site, the second site where the bomb can be planted");
   Room* upperTuns = new Room("upperTuns", "at the Upper Tunnels");
-  upperTuns->addItem(Grenade);
+  upperTuns->addItem(GRENADE);
   Room* outsideTuns = new Room("outsideTuns","Outside Upper Tunnels");
   Room* tRamp = new Room("tRamp","at T Ramp, the ramp connecting tunnels to T Spawn");
   Room* lowerTuns = new Room("lowerTuns", "at Lower tunnels");
   Room* ctSpawn = new Room("ctSpawn", "at CT Spawn, where the counterterrorists spawn");
-  ctSpawn->addItem(DefuseKit);
+  ctSpawn->addItem(DEFUSEKIT);
   Room* mid = new Room("mid", "at mid, the middle of the map");
   Room* suicide = new Room("suicide", "at suicide, a tunnel connecting T Spawn to mid");
   Room* tSpawn = new Room("tSpawn", "at T Spawn, the place where terrorists spawn");
   tSpawn->addItem(AK47);
-  tSpawn->addItem(Bomb);
+  tSpawn->addItem(BOMB);
   Room* Short = new Room("Short", "at Short, the walkway connecting Cat to A Site");
   Room* cat = new Room("cat", "at Catwalk, the walkway connecting mid to Short");
   Room* longDoors = new Room("longDoors", "at Long Doors, the doorway connecting Long");
@@ -40,7 +40,7 @@ int main() {
   Room* cross = new Room("cross", "at cross, the intersection connecting Long, CT Spawn, and A Site");
   Room* Long = new Room("Long", "at Long, the long walkway connecting A Site to T Spawn");
   Room* pit = new Room("pit", "at pit, the pit at the end of long");
-  pit->addItem(Flashbang);
+  pit->addItem(FLASHBANG);
 
   //add exits
   bSite->setExit("SOUTH", upperTuns);
@@ -123,6 +123,7 @@ int main() {
   cout << "Welcome to CSGO!" << endl;
   cout << "You are a Counterterrorist- " << endl;
   cout << "In order to win, you need to travel to CT Spawn and pick up a defuse kit." << endl;
+  cout << "Do not go to tSpawn and pick up the bomb...or you will die" << endl;
   cout << endl;
   cout << "Type GO to go to another room" << endl;
   cout << "Type GET to pick up an item" << endl;
@@ -136,10 +137,10 @@ int main() {
     //iterate through the inventory and check if there is an item with description of defusekit
     vector<Items*>::iterator it;
     for(it = inventory.begin(); it != inventory.end(); it++) {
-      if (strcmp((*it)->getDescription(), DefuseKit->getDescription())==0) {
+      if (strcmp((*it)->getDescription(), DEFUSEKIT->getDescription())==0) {
         cout << "Congradulations, you have picked up the defuse kit and won the game!!" << endl;
         cout <<"exiting...";
-        exit(0);
+        break;
       }
     }
     cout<< "You are " << current->getDescription() <<"." << endl;
@@ -164,7 +165,7 @@ int main() {
         for(iter = Rooms.begin(); iter != Rooms.end(); iter++) {
           if (strcmp((*iter)->getName(), current->getName())==0) {
             if((*iter)->checkDirection(input)){
-              current = (*iter)->setRoom(input);
+                current = (*iter)->setRoom(input);          
             }
           }
         }
@@ -173,16 +174,10 @@ int main() {
         cin.getline(input, 40);
         for(it = current->getItems().begin(); it != current->getItems().end(); it++) {
           if (strcmp((*it)->getDescription(), input)==0) {
-            inventory.push_back(new Items(input));
-            vector<Room*>::iterator iter;
-            for(iter = Rooms.begin(); iter != Rooms.end(); iter++) {
-              if (strcmp((*iter)->getName(), current->getName())==0) {
-                (*iter)->removeItem(*it);
-              }
-            }
-            delete * it;
-            it = current->getItems().erase(it);
-            it--;
+            inventory.push_back(*it);
+            //segmentation fault above ^^^^
+            current->removeItem(*it);
+            break;
           }
         }
       } else if(strcmp(input, "DROP") == 0){
@@ -191,15 +186,7 @@ int main() {
         for(it = inventory.begin(); it != inventory.end(); it++) {
           if (strcmp((*it)->getDescription(), input)==0) {
             //add to room (current and actual)
-            current->addItem(new Items(input));
-            vector<Room*>::iterator iter;
-            for(iter = Rooms.begin(); iter != Rooms.end(); iter++) {
-              if (strcmp((*iter)->getName(), current->getName())==0) {
-                (*iter)->addItem(new Items(input));
-              }
-            }
-            //delete from inventory
-            delete * it;
+            current->addItem(*it); 
             it = inventory.erase(it);
             it--;
           }
@@ -209,7 +196,7 @@ int main() {
       }
       else if(strcmp(input, "QUIT") == 0){
         cout << "Exiting..."<< endl;
-        exit(0);
+        break;
       }else{
         cout << "Not a valid command" << endl;
       }
