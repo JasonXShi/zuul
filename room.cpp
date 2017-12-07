@@ -23,9 +23,10 @@ void Room::addItem(Items* item){
 }
 
 void Room::removeItem(Items* item){
-    for(vector<Items*>::iterator it = items.begin(); it!=items.end(); it++){
+    for(vector<Items*>::iterator it = items.begin(); it!=items.end(); ++it){
         if(strcmp((*it)->getDescription(), item->getDescription()) == 0){  
             items.erase(it); 
+            break;
         }
     }
 }
@@ -54,9 +55,7 @@ void Room::printInfo(){
 bool Room::checkDirection(char* direction){
   map<char*, Room*>::iterator it; exits.begin();
   for(it = exits.begin(); it != exits.end(); it++){
-    cout<< it->first << endl;
-    cout<< direction << endl;
-      if (strcmp(it->first, direction)==0) {
+    if (strcmp(it->first, direction)==0) {
         return true;
     }
   }
@@ -74,3 +73,14 @@ Room* Room::setRoom(char* direction){
 vector<Items*> Room::getItems(){
     return items;
 }
+/*
+void Room::deleteItem(char* itemName, vector<Items*> &inventory){
+    vector<Items*>::iterator it;
+    for(it = items.begin(); it != items.end(); ++it){
+      if(strcmp((*it)->getDescription(), itemName) == 0){
+          inventory.push_back(*it);
+          items.erase(it);
+          break;
+      }
+    }
+}*/

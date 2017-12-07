@@ -16,6 +16,7 @@ class Room {
   void removeItem(Items* item);
   void printInfo();
   Room* setRoom(char* direction);
+  //void deleteItem(char* itemName, vector<Items*> &inventory);
   bool checkDirection(char* direction);
   vector<Items*> getItems();
  private:

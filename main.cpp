@@ -99,7 +99,7 @@ int main() {
 	pit->setExit("NORTH", Long);
 	pit->setExit("WEST", longDoors);
 
-	current = tSpawn; // start game at mid
+	current = mid; // start game at mid
 
   //add rooms to vector
   Rooms.push_back(bSite);
@@ -140,9 +140,14 @@ int main() {
       if (strcmp((*it)->getDescription(), DEFUSEKIT->getDescription())==0) {
         cout << "Congradulations, you have picked up the defuse kit and won the game!!" << endl;
         cout <<"exiting...";
-        break;
+        return(0);
+      }else if(strcmp((*it)->getDescription(), BOMB->getDescription())==0){
+      cout << "You picked up the bomb and it exploded... Game Over." << endl;
+      cout<< "exiting...";
+      return(0);
       }
     }
+
     cout<< "You are " << current->getDescription() <<"." << endl;
     current->printInfo();
     cout << endl;
@@ -172,12 +177,15 @@ int main() {
       }else if(strcmp(input, "GET") == 0){
         cout << "Enter the name of the item you want to pick up:";
         cin.getline(input, 40);
-        for(it = current->getItems().begin(); it != current->getItems().end(); it++) {
-          if (strcmp((*it)->getDescription(), input)==0) {
-            inventory.push_back(*it);
-            //segmentation fault above ^^^^
-            current->removeItem(*it);
+        //delete Item(input, inventory);
+        vector<Items*>::iterator ite;
+        for(ite = current->getItems().begin(); ite != current->getItems().end(); ++ite) {
+                               
+            if (strcmp((*ite)->getDescription(), input)==0) {
+            inventory.push_back(*ite);
+            current->removeItem(*ite);
             break;
+            
           }
         }
       } else if(strcmp(input, "DROP") == 0){
@@ -188,7 +196,7 @@ int main() {
             //add to room (current and actual)
             current->addItem(*it); 
             it = inventory.erase(it);
-            it--;
+            break;
           }
         }
       }else if(strcmp(input, "HELP") == 0){
@@ -196,7 +204,7 @@ int main() {
       }
       else if(strcmp(input, "QUIT") == 0){
         cout << "Exiting..."<< endl;
-        break;
+        return(0);
       }else{
         cout << "Not a valid command" << endl;
       }
