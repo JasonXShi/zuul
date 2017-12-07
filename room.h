@@ -1,3 +1,4 @@
+//header guards and includes stuff
 #ifndef ROOM_H
 #define ROOM_H
 #include <iostream>
@@ -8,6 +9,7 @@ using namespace std;
 
 class Room {
  public:
+ //defines methods and constructer
   Room(char* newName, char* newDescription);
   char* getDescription();
   char* getName();
@@ -16,10 +18,10 @@ class Room {
   void removeItem(Items* item);
   void printInfo();
   Room* setRoom(char* direction);
-  //void deleteItem(char* itemName, vector<Items*> &inventory);
   bool checkDirection(char* direction);
   vector<Items*> getItems();
  private:
+ //initializes variables
   char* description;
   char* name;
   vector<Items*> items;
