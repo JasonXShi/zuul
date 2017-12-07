@@ -20,6 +20,7 @@ class Room {
   Room* setRoom(char* direction);
   bool checkDirection(char* direction);
   vector<Items*> getItems();
+  ~Room();
  private:
  //initializes variables
   char* description;

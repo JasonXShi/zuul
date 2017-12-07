@@ -30,7 +30,10 @@ void Room::removeItem(Items* item){
         }
     }
 }
-
+Room::~Room() {
+	delete []description;
+	delete []name;
+}
 void Room::setExit( char* direction, Room* room ){
   exits.insert(make_pair(direction, room));
 }
@@ -73,14 +76,4 @@ Room* Room::setRoom(char* direction){
 vector<Items*> Room::getItems(){
     return items;
 }
-/*
-void Room::deleteItem(char* itemName, vector<Items*> &inventory){
-    vector<Items*>::iterator it;
-    for(it = items.begin(); it != items.end(); ++it){
-      if(strcmp((*it)->getDescription(), itemName) == 0){
-          inventory.push_back(*it);
-          items.erase(it);
-          break;
-      }
-    }
-}*/
+
