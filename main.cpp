@@ -12,27 +12,6 @@ Written By Jason Shi
 #include <iterator>
 #include "Room.h"
 #include "Items.h"
-void endProgram;
-void endProgram(){
-	//iterate through all rooms
-	//in the rooms, delete the items
-	//delete the descriptions and stuff of each room
-	//call destuctors on inventory
-	/*
-    cout << "something";
-	vector<Room*>::iterator it;
-	vector<Items*>::iterator iter;
-	for(it = rooms.begin; it != rooms.end; ++it){
-		for(iter =  (*it)->getItems().begin(); iter != (*it)->getItems().end(), ++ iter){
-		delete *iter;
-		//iter--;
-		}
-		delete *it;
-		//it--;
-	}*/
-	
-	return(0);
-}
 int main() {
   vector<Room*> Rooms;
   vector<Items*> inventory;
@@ -168,11 +147,11 @@ int main() {
       if (strcmp((*it)->getDescription(), DEFUSEKIT->getDescription())==0) {
         cout << "Congradulations, you have picked up the defuse kit and won the game!!" << endl;
         cout <<"exiting...";
-        endProgram();
+        return 0;
       }else if(strcmp((*it)->getDescription(), BOMB->getDescription())==0){
       cout << "You picked up the bomb and it exploded... Game Over." << endl;
       cout<< "exiting...";
-      endProgram();
+      return 0;
       }
     }
 //displays current room and the exits and items
@@ -232,7 +211,7 @@ int main() {
       else if(strcmp(input, "QUIT") == 0){
 	//exits
         cout << "Exiting..."<< endl;
-        endProgram();
+        return 0;
       }else{
         cout << "Not a valid command" << endl;
       }
