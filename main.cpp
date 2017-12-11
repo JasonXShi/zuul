@@ -190,9 +190,11 @@ int main() {
         vector<Items*>::iterator ite;
         for(ite = current->getItems().begin(); ite != current->getItems().end(); ++ite) {   
             if (strcmp((*ite)->getDescription(), input)==0) {
-            inventory.push_back(*ite);
-            current->removeItem(*ite);
-            break;
+
+                
+                inventory.push_back(*ite);
+                current->removeItem(*ite);
+                break;
           }
         }
       } else if(strcmp(input, "DROP") == 0){
