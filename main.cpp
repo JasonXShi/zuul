@@ -3,6 +3,7 @@ Zuul - a text based adventure game where you can go around the map "dust 2" in C
 Written By Jason Shi
 12/7/2017
 */
+
 //import stuff
 #include <iostream>
 #include <vector>
@@ -17,7 +18,8 @@ void endProgram(){
 	//in the rooms, delete the items
 	//delete the descriptions and stuff of each room
 	//call destuctors on inventory
-	cout << "something";
+	/*
+    cout << "something";
 	vector<Room*>::iterator it;
 	vector<Items*>::iterator iter;
 	for(it = rooms.begin; it != rooms.end; ++it){
@@ -27,7 +29,7 @@ void endProgram(){
 		}
 		delete *it;
 		//it--;
-	}
+	}*/
 	
 	return(0);
 }
