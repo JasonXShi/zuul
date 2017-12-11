@@ -179,6 +179,7 @@ int main() {
           if (strcmp((*iter)->getName(), current->getName())==0) {
             if((*iter)->checkDirection(input)){
                 current = (*iter)->setRoom(input);          
+                break;
             }
           }
         }

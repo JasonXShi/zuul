@@ -68,7 +68,8 @@ Room* Room::setRoom(char* direction){
   map<char*, Room*>::iterator it; exits.begin();
   for(it = exits.begin(); it != exits.end(); it++){
     if (strcmp(it->first, direction)==0) {
-      return it->second;
+
+        return it->second;
     }
   }
 }
